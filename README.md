@@ -3,7 +3,7 @@
 ## Overview
 
 This project implements a Universal Asynchronous Receiver/Transmitter (UART) in SystemVerilog, designed for simulation in Quartus Prime with ModelSim.
-The design models the UART’s digital logic, frame structure, and timing, and includes a conceptual RS-232 layer to demonstrate voltage inversion and signaling conventions — without requiring FPGA hardware.
+The design models the UART’s digital logic, frame structure, and timing, and includes a conceptual RS-232 layer to demonstrate voltage inversion and signaling conventions without requiring FPGA hardware.
 
 The goal is to demonstrate digital logic and microcontroller communication concepts rather than to produce a hardware-ready implementation.
 
