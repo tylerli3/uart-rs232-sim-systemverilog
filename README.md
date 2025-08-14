@@ -61,7 +61,7 @@ Top-level module that instantiates and connects:
 
 ---
 
-Simulation Parameters
+## Simulation Parameters
 | Parameter	| Default Value	| Description                   |
 | --------- | ------------- | ----------------------------- |
 | CLK_FREQ	| 10 MHz	      | Simulation system clock       |
