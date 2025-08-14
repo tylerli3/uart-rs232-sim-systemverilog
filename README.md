@@ -26,33 +26,33 @@ The goal is to demonstrate digital logic and microcontroller communication conce
 
 ## Module Breakdown
 
-1. uart_top.sv
+1. **uart_top.sv**
 Top-level module that instantiates and connects:
 * Baud generator
 * UART transmitter
 * UART receiver
 * RS-232 conceptual interface
 
-2. baud_gen.sv
+2. **baud_gen.sv**
 * Generates baud_tick based on CLK_FREQ and BAUD_RATE
 * Shared by both TX and RX FSMs
 
-3. uart_tx.sv
+3. **uart_tx.sv**
 * Transmits serial data from an 8-bit parallel input
 * FSM: IDLE → START → DATA bits → STOP → IDLE
 
-4. uart_rx.sv
+4. **uart_rx.sv**
 * Receives serial data into an 8-bit parallel output
 * FSM: IDLE → START detect → DATA bits → STOP check → IDLE
 * Samples each bit in the middle of its period
 
-5. rs232_phy.sv (simulation only)
+5. **rs232_phy.sv** (simulation only)
 * Demonstrates RS-232 voltage inversion conceptually:
 * Logic 0 → positive voltage (e.g., +12 V equivalent)
 * Logic 1 → negative voltage (e.g., −12 V equivalent)
 * No electrical hardware modeling — purely for waveform visualization
 
-6. uart_tb.sv
+6. **uart_tb.sv**
 * Generates simulation clock
 * Instantiates uart_top
 * Loopback mode: TX output connected to RX input
