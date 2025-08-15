@@ -14,12 +14,13 @@ The goal is to demonstrate digital logic and microcontroller communication conce
 * UART Frame Format: 8N1 (1 start bit, 8 data bits, no parity, 1 stop bit)
 * Parameterizable clock frequency and baud rate
 * Default simulation: CLK_FREQ = 10 MHz, BAUD_RATE = 1 Mbps
-* Separate TX and RX FSMs
 * 1-byte holding registers for TX and RX (no FIFOs in V1)
 * Baud rate generator for both TX and RX timing
 * Conceptual RS-232 module (logic inversion, voltage level representation)
 * Loopback testbench for self-contained verification
 * Fully modular design for future extensions (parity, FIFOs, oversampling)
+* Separate TX and RX FSMs
+![tx_rx_fsm](docs/txrxfsm.png)
 
 ---
 
@@ -78,7 +79,7 @@ In simulation, you’ll see:
 * Start bit (low)
 * 8 data bits (LSB first)
 * Stop bit (high)
-* RS-232 conceptual signal (inverted and “voltage” shifted for demonstration)
+* RS-232 conceptual signal (simulated voltage inverted and shifted for demonstration)
 
 ## Future Improvements
 
