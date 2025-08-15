@@ -20,7 +20,7 @@ The goal is to demonstrate digital logic and microcontroller communication conce
 * Loopback testbench for self-contained verification
 * Fully modular design for future extensions (parity, FIFOs, oversampling)
 * Separate TX and RX FSMs
-![tx_rx_fsm](docs/txrxfsm.png | width = 100)
+![](docs/txrxfsm.png)
 
 ---
 
