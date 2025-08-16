@@ -47,6 +47,7 @@ Transmits serial data from an 8-bit parallel input
 Receives serial data into an 8-bit parallel output
 * FSM: IDLE → START detect → DATA bits → STOP check → IDLE
 * Samples each bit in the middle of its period
+* Double flop synchronizer for metastability
 
 ### 5. `rs232_phy.sv` (simulation only)
 Demonstrates RS-232 voltage inversion conceptually:
