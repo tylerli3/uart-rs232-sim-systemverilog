@@ -7,6 +7,8 @@ The design models the UART’s digital logic, frame structure, and timing, and i
 
 The goal is to demonstrate digital logic and microcontroller communication concepts rather than to produce a hardware-ready implementation.
 
+(This project is currently WIP)
+
 ---
 
 ## Features
@@ -19,7 +21,6 @@ The goal is to demonstrate digital logic and microcontroller communication conce
 * Conceptual RS-232 module (logic inversion, voltage level representation)
 * Loopback testbench for self-contained verification
 * Fully modular design for future extensions (parity, FIFOs, oversampling)
-* Separate TX and RX FSMs
 
 ![](docs/txrxfsm.jpg)
 
@@ -42,12 +43,14 @@ Generates baud_tick based on CLK_FREQ and BAUD_RATE
 ### 3. `uart_tx.sv`
 Transmits serial data from an 8-bit parallel input
 * FSM: IDLE → START → DATA bits → STOP → IDLE
+* Sends bits LSB first
 
 ### 4. `uart_rx.sv`
 Receives serial data into an 8-bit parallel output
 * FSM: IDLE → START detect → DATA bits → STOP check → IDLE
 * Samples each bit in the middle of its period
 * Double flop synchronizer for metastability
+* Recieves bits LSB first
 
 ### 5. `rs232_phy.sv` (simulation only)
 Demonstrates RS-232 voltage inversion conceptually:
@@ -83,10 +86,22 @@ In simulation, you’ll see:
 * Stop bit (high)
 * RS-232 conceptual signal (simulated voltage inverted and shifted for demonstration)
 
+---
+
 ## Future Improvements
 
-Parity support (even/odd)
+* Parity support (even/odd)
 * Configurable stop bits
 * Deeper TX/RX FIFOs
 * RX oversampling for noise tolerance
 * Hardware-level RS-232 via MAX232 if moved to FPGA
+
+## Notes
+
+* This project is meant purely as a simulation
+* Baud generation being shared by TX and RX is for ease of simulation
+
+---
+
+## Contact
+Email: tylerli3@illinois.edu
