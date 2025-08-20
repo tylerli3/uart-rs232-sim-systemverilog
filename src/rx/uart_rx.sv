@@ -43,39 +43,44 @@ output logic rx_ready // handshake w/ tx
 			shift_reg <= 8'd0;
 			bit_count <= 3'd0;
 			start_counter <= '0;
-		end else if (state == START) begin
-			if (rx_sync) begin
-				rx_ready <= 1'b0;
-				state <= IDLE; // false start
-			end else if (start_counter == DIVIDER/2) begin // we know start bit is still held
-				rx_ready <= 1'b0; // about to recieve data
-				bit_count <= 3'd0; // reset bit count
-				state <= DATA;
-			end
-			start_counter <= start_counter + 1; // iter counter
-		end else if (baud_tick) begin
-			case (state) // define behavior based on fsm stage
+		end else begin
+			rx_ready <= 1'b0; // default assert rx_ready
+			
+			case (state)
 				IDLE: begin
-					rx_ready <= 1'b0; // not ready to output data now
 					if (!rx_sync) begin // start bit detected
 						start_counter <= '0;
 						state <= START;
 					end
 				end
-				DATA: begin
-					shift_reg <= {rx_sync, shift_reg[7:1]}; // lsb first
-					if (bit_count == 3'd7) begin // if gone thru all bits
-						state <= STOP; // next state
+				
+				START: begin
+					if (rx_sync) begin
+						state <= IDLE; // false start
+					end else if (start_counter == DIVIDER/2) begin
+						bit_count <= 3'd0; // clear count for data transfer
+						state <= DATA; // next state
 					end
-					bit_count <= bit_count+1; // iter bit count
+					start_counter <= start_counter + 1;
 				end
-				STOP: begin
-					if (rx_sync) begin // stop bit
-						rx_ready <= 1'b1; // data ready to be read again
-					end else begin
-						rx_ready <= 1'b0; // framing error
+				
+				DATA: begin
+					if (baud_tick) begin
+					shift_reg <= {rx_sync, shift_reg[7:1]}; // LSB first
+						if (bit_count == 3'd7) begin
+							state <= STOP;
+						end
+						bit_count <= bit_count +1;
 					end
-					state <= IDLE;
+				end
+				
+				STOP: begin
+					if (baud_tick) begin
+						if (rx_sync) begin
+							rx_ready <= 1'b1; // valid stop bit, pulse ready
+						end
+					end
+					state <= IDLE; // ready to recieve next packet
 				end
 			endcase
 		end
