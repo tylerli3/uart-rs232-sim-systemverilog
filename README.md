@@ -7,8 +7,6 @@ The design models the UART’s digital logic, frame structure, and timing, and i
 
 The goal is to demonstrate digital logic and microcontroller communication concepts rather than to produce a hardware-ready implementation.
 
-(This project is currently WIP)
-
 ---
 
 ## Features
